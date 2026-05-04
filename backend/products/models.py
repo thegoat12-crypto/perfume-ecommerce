@@ -1,4 +1,6 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 # Ajoutez ce modèle en haut de models.py
 class Note(models.Model):
@@ -61,3 +63,10 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product.name}"
+
+@receiver(post_save, sender=OrderItem)
+def update_stock(sender, instance, created, **kwargs):
+    if created:
+        product = instance.product
+        product.stock -= instance.quantity
+        product.save()

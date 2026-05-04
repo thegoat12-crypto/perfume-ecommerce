@@ -21,7 +21,7 @@ export default function ProductDetail() {
         }
     }, [id]);
 
-    if (!product) return <div className="min-h-screen flex items-center justify-center font-serif uppercase tracking-widest">Chargement...</div>;
+    if (!product) return <div className="min-h-screen flex items-center justify-center font-serif uppercase tracking-widest text-gray-400">Chargement...</div>;
 
     return (
         <main className="min-h-screen bg-white">
@@ -51,28 +51,33 @@ export default function ProductDetail() {
                         <h1 className="text-5xl font-serif mb-6 leading-tight">{product.name}</h1>
                         <p className="text-2xl text-gray-800 mb-8">{product.price} €</p>
 
-                        <div className="prose prose-sm text-gray-600 mb-10 leading-relaxed">
-                            <p>{product.description}</p>
-                        </div>
-
-                        {/* À insérer juste avant les boutons Ajouter au panier */}
+                        {/* Pyramide Olfactive */}
                         <div className="mb-10">
-                            <p className="text-xs uppercase tracking-widest text-gray-400 mb-4 font-bold">Notes Olfactives</p>
-                            <div className="flex flex-wrap gap-2">
+                            <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-4 font-bold">Pyramide Olfactive</p>
+                            <div className="flex flex-wrap gap-3">
                                 {product.notes?.map((note: any) => (
-                                    <span key={note.id} className="px-4 py-1 border border-gray-100 text-xs uppercase tracking-widest bg-gray-50">
+                                    <span key={note.id} className="px-5 py-2 border border-gray-100 text-[10px] uppercase tracking-widest bg-gray-50 text-gray-600">
                                         {note.name}
                                     </span>
                                 ))}
                             </div>
                         </div>
 
-                        <div className="flex gap-4"><button
-                            onClick={() => addToCart(product)}
-                            className="btn-gold flex-1 py-4 text-base"
-                        >
-                            Ajouter au panier
-                        </button>
+                        <div className="prose prose-sm text-gray-600 mb-10 leading-relaxed">
+                            <p>{product.description}</p>
+                            {product.stock <= 5 && product.stock > 0 && (
+                                <p className="text-red-500 text-[10px] uppercase tracking-widest font-bold mt-2">Plus que {product.stock} exemplaires disponibles !</p>
+                            )}
+                        </div>
+
+                        <div className="flex gap-4">
+                            <button
+                                onClick={() => addToCart(product)}
+                                disabled={product.stock <= 0}
+                                className={`btn-gold flex-1 py-4 text-base ${product.stock <= 0 ? 'bg-gray-300 cursor-not-allowed' : ''}`}
+                            >
+                                {product.stock > 0 ? "Ajouter au panier" : "Rupture de stock"}
+                            </button>
                             <button className="border border-gray-200 px-6 py-4 hover:bg-gray-50 transition-colors">♡</button>
                         </div>
                     </motion.div>
