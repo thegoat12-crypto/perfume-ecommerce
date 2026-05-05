@@ -4,6 +4,7 @@ import "./globals.css";
 import { CartProvider } from '../context/CartContext';
 import { AuthProvider } from '../context/AuthContext';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 
 const geistSans = Geist({

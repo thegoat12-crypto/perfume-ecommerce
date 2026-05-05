@@ -25,12 +25,12 @@ export default function Header() {
                 <div className="hidden md:flex flex-1 items-center gap-8">
                     <Search className="w-5 h-5 cursor-pointer hover:text-[#D4AF37]" />
                 </div>
-
-
+                <div className="flex-1 md:hidden">
+                    <User className="w-6 h-6 cursor-pointer" onClick={() => setIsMenuOpen(true)} />
+                </div>
                 <Link href="/">
                     <h1 className="text-2xl md:text-3xl font-serif tracking-[0.2em] uppercase cursor-pointer">Manus Scents</h1>
                 </Link>
-
                 <nav className="hidden md:flex gap-8 ml-12">
                     <Link href="/quiz" className="text-[10px] uppercase tracking-[0.2em] hover:text-[#D4AF37] transition-colors">
                         Diagnostic Olfactif

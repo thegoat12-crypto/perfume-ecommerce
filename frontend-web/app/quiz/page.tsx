@@ -1,6 +1,5 @@
 'use client';
 import { useState, useEffect } from 'react';
-import Header from '../../components/Header';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -37,21 +36,18 @@ export default function QuizPage() {
         if (step < questions.length - 1) {
             setStep(step + 1);
         } else {
-            // Fin du quiz : on va chercher les recommandations
             fetch(`http://127.0.0.1:8000/api/products/items/`)
                 .then(res => res.json())
                 .then(products => {
-                    // Logique de recommandation simple basée sur la catégorie
                     const filtered = products.filter((p: any) => p.category?.name === newAnswers[0]);
                     setRecommendations(filtered);
-                    setStep(questions.length); // Étape de résultat
+                    setStep(questions.length);
                 });
         }
     };
 
     return (
-        <main className="min-h-screen bg-white">
-            <Header />
+        <main className="min-h-screen bg-white pt-10">
             <div className="max-w-4xl mx-auto px-4 py-20">
                 <AnimatePresence mode="wait">
                     {step < questions.length ? (
